@@ -1,1 +1,262 @@
-/* Add your CSS here */
+:root {
+  --intel-blue: #0071c5;
+  --intel-navy: #003c71;
+  --intel-light-blue: #00c7fd;
+  --intel-gray: #f7f7f7;
+  --intel-dark-gray: #53565a;
+  --intel-white: #ffffff;
+}
+
+/* Use Intel gray as the main page background. */
+body {
+  margin: 0;
+  background-color: var(--intel-gray);
+  color: var(--intel-dark-gray);
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Center the logo, heading, and description in Intel Blue. */
+header {
+  padding: 64px 20px;
+  background-color: var(--intel-blue);
+  color: var(--intel-white);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+header img {
+  width: 220px;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 42px;
+  line-height: 1.2;
+}
+
+header p {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+/* Keep the gallery images in a simple responsive row. */
+.gallery,
+.timeline {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px 20px;
+}
+
+.gallery {
+  max-width: none;
+  padding: 48px 20px;
+  background-color: var(--intel-navy);
+  color: var(--intel-white);
+}
+
+.gallery h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.gallery-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
+
+.gallery-images img {
+  width: calc(50% - 9px);
+  max-width: 500px;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Keep the timeline cards in one horizontally scrollable row on large screens. */
+.timeline {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.timeline > div {
+  box-sizing: border-box;
+  flex: 0 0 320px;
+  min-height: 220px;
+  padding: 24px;
+  background-color: var(--intel-white);
+  border-left: 5px solid var(--intel-light-blue);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 60, 113, 0.14);
+  scroll-snap-align: start;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Place the image and description in the same fixed area. */
+.milestone-media {
+  position: relative;
+  height: 150px;
+  margin: 0 -24px;
+  overflow: hidden;
+  background-color: var(--intel-navy);
+}
+
+.milestone-media img {
+  width: 100%;
+  height: 150px;
+  display: block;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide the longer milestone description until a card is hovered. */
+.timeline > div p {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  display: block;
+  max-height: none;
+  margin: 0;
+  padding: 16px 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+/* I had ChatGPT explain and write most of the CSS for this part with the webkit scrollbar. I looked at the online documentation and have a good idea of what it does. */
+
+.timeline > div p::-webkit-scrollbar {
+  width: 8px;
+}
+
+.timeline > div p::-webkit-scrollbar-thumb {
+  background-color: var(--intel-light-blue);
+  border-radius: 4px;
+}
+
+.timeline > div:hover,
+.timeline > div:focus-within {
+  background: linear-gradient(135deg, var(--intel-blue), var(--intel-navy));
+  color: var(--intel-white);
+}
+
+.timeline > div:hover p,
+.timeline > div:focus-within p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline > div:hover .milestone-media img,
+.timeline > div:focus-within .milestone-media img {
+  opacity: 0;
+}
+
+.timeline h2,
+.timeline h3 {
+  margin-top: 0;
+}
+
+.scroll-message {
+  padding: 20px;
+  margin: 0;
+  background-color: var(--intel-light-blue);
+  color: var(--intel-navy);
+  text-align: center;
+}
+
+/* Tablet layout. */
+@media (max-width: 768px) {
+  header {
+    padding: 48px 20px;
+  }
+
+  header img {
+    width: 180px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .gallery-images img,
+  .timeline > div {
+    width: 320px;
+    max-width: 100%;
+  }
+
+  .timeline {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .timeline > div {
+    flex-basis: auto;
+  }
+
+  .milestone-media {
+    height: auto;
+    margin: 0 -24px;
+  }
+
+  .milestone-media img {
+    height: auto;
+  }
+
+  .timeline > div p {
+    position: static;
+    display: block;
+    padding: 16px 24px 0;
+    overflow: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Phone layout. */
+@media (max-width: 480px) {
+  header {
+    padding: 40px 16px;
+  }
+
+  header img {
+    width: 140px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  header p {
+    font-size: 16px;
+  }
+
+  .gallery,
+  .timeline {
+    padding: 36px 16px 16px;
+  }
+
+  .gallery-images img,
+  .timeline > div {
+    width: 280px;
+    max-width: 100%;
+  }
+
+  .timeline > div {
+    width: 100%;
+  }
+}
