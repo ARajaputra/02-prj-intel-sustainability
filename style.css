@@ -83,6 +83,10 @@ header p {
 
 /* Keep the timeline cards in one horizontally scrollable row on large screens. */
 .timeline {
+  overflow: visible;
+}
+
+.timeline-track {
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
@@ -91,7 +95,7 @@ header p {
   scroll-behavior: smooth;
 }
 
-.timeline > div {
+.timeline-track > div {
   box-sizing: border-box;
   flex: 0 0 320px;
   min-height: 220px;
@@ -122,7 +126,7 @@ header p {
 }
 
 /* Hide the longer milestone description until a card is hovered. */
-.timeline > div p {
+.timeline-track > div p {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -140,29 +144,29 @@ header p {
 
 /* I had ChatGPT explain and write most of the CSS for this part with the webkit scrollbar. I looked at the online documentation and have a good idea of what it does. */
 
-.timeline > div p::-webkit-scrollbar {
+.timeline-track > div p::-webkit-scrollbar {
   width: 8px;
 }
 
-.timeline > div p::-webkit-scrollbar-thumb {
+.timeline-track > div p::-webkit-scrollbar-thumb {
   background-color: var(--intel-light-blue);
   border-radius: 4px;
 }
 
-.timeline > div:hover,
-.timeline > div:focus-within {
+.timeline-track > div:hover,
+.timeline-track > div:focus {
   background: linear-gradient(135deg, var(--intel-blue), var(--intel-navy));
   color: var(--intel-white);
 }
 
-.timeline > div:hover p,
-.timeline > div:focus-within p {
+.timeline-track > div:hover p,
+.timeline-track > div:focus p {
   opacity: 1;
   transform: translateY(0);
 }
 
-.timeline > div:hover .milestone-media img,
-.timeline > div:focus-within .milestone-media img {
+.timeline-track > div:hover .milestone-media img,
+.timeline-track > div:focus .milestone-media img {
   opacity: 0;
 }
 
@@ -194,36 +198,35 @@ header p {
   }
 
   .gallery-images img,
-  .timeline > div {
-    width: 320px;
-    max-width: 100%;
+  .timeline-track > div {
+    width: 100%;
+    max-width: none;
   }
 
   .timeline {
-    flex-direction: column;
-    overflow-x: visible;
+    overflow: visible;
   }
 
-  .timeline > div {
-    flex-basis: auto;
+  .timeline-track {
+    flex-direction: column;
+    overflow: visible;
+    animation: none;
   }
 
   .milestone-media {
-    height: auto;
+    height: 180px;
     margin: 0 -24px;
   }
 
   .milestone-media img {
-    height: auto;
+    height: 100%;
   }
 
-  .timeline > div p {
-    position: static;
-    display: block;
-    padding: 16px 24px 0;
-    overflow: visible;
-    opacity: 1;
-    transform: translateY(0);
+  .timeline-track > div p {
+    padding: 16px 24px;
+    z-index: 1;
+    background-color: var(--intel-navy);
+    color: var(--intel-white);
   }
 }
 
@@ -251,12 +254,13 @@ header p {
   }
 
   .gallery-images img,
-  .timeline > div {
-    width: 280px;
-    max-width: 100%;
+  .timeline-track > div {
+    width: 100%;
+    max-width: none;
   }
 
-  .timeline > div {
+  .timeline-track > div {
     width: 100%;
+    flex-basis: auto;
   }
 }
